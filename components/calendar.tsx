@@ -18,6 +18,8 @@ const MONTHS = [
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
+const COLLEGE = ["KHALSA COLLEGE AMRITSAR"]
+
 const DOMAINS = ['Technical', 'Creative', 'Cultural', 'Trips', 'Sports', 'Placement', 'Others']
 
 interface Event {
@@ -45,6 +47,7 @@ export default function Component() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [editingEvent, setEditingEvent] = useState<Event | null>(null)
   const [selectedDomain, setSelectedDomain] = useState<string>('')
+  const [selectedCollege, setSelectedCollege] = useState<string>('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [showEventDetails, setShowEventDetails] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
@@ -332,8 +335,17 @@ export default function Component() {
                 <Input id="organizer" name="organizer" defaultValue={editingEvent?.organizer || ''} required />
               </div>
               <div>
-                <Label  htmlFor="college">College/University Name</Label>
-                <Input id="college" name="college" defaultValue={editingEvent?.college || ''} required />
+                <Label htmlFor="college/">College</Label>
+                <Select defaultValue={editingEvent?.college || selectedCollege} onValueChange={setSelectedCollege}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select College" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COLLEGE.map(college => (
+                      <SelectItem key={college} value={college}>{college}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div>
                 <Label htmlFor="domain">Domain</Label>
